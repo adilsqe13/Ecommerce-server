@@ -1,34 +1,10 @@
 const serverless = require('serverless-http');
-const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://user123:Addilsqe13@cluster0.vrujhwg.mongodb.net/test';
-// const connectToDtabase = require("./db");
+const connectToDtabase = require("./db");
 const express = require('express');
 const cors = require('cors');
 // const port = 5000;
 
-// require database connection 
-// const dbConnect = require("./db");
-// execute database connection 
-// dbConnect();
-mongoose
-    .connect(
-        mongoURI,
-      {
-        //   these are options to ensure that the connection is done properly
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-      }
-    )
-    .then(() => {
-      console.log("Successfully connected to MongoDB Atlas!");
-    })
-    .catch((error) => {
-      console.log("Unable to connect to MongoDB Atlas!");
-      console.error(error);
-    });
-
-// connectToDtabase();
+connectToDtabase();
 const app = express();
 
 
