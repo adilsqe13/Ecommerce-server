@@ -13,7 +13,7 @@ mongoose.connect(mongoURI, {
     console.log('Connected to the database');
   });
 
-  module.exports = async function connectToDatabase() {
+  exports.handler = async function connectToDatabase() {
     await new Promise((resolve) => {
       db.once('open', resolve);
     });
