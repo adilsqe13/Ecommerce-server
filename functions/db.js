@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://127.0.0.1:27017/myshopper';
+// const mongoURI = 'mongodb://127.0.0.1:27017/myshopper';
+const mongoURI = 'mongodb+srv://user123:Addilsqe13@cluster0.vrujhwg.mongodb.net/';
 
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
