@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const mongoURI = 'mongodb+srv://user123:Addilsqe13@cluster0.vrujhwg.mongodb.net/test';
 // const connectToDtabase = require("./db");
 const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 // const port = 5000;
 
 // require database connection 
