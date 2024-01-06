@@ -11,7 +11,7 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function run() {
+module.exports = async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
@@ -23,7 +23,7 @@ async function run() {
     await client.close();
   }
 }
-module.exports = run().catch(console.dir);
+// module.exports = run().catch(console.dir);
 
 
 
