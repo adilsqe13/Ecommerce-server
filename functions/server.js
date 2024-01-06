@@ -13,6 +13,6 @@ router.post('/add', (req, res) =>{
 });
 
 //Available Routes
-app.use('/.netlify/functions/api', router);
+app.use('/.netlify/functions/server', router);
 module.exports.handler = serverless(app);
 
