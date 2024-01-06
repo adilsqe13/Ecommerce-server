@@ -1,4 +1,2 @@
 [build]
-  command = "npm run build"
-  functions = "functions"  # The directory containing your serverless functions
-  publish = "." 
+  functions = "functions"

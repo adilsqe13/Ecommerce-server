@@ -1,22 +1,38 @@
-require('dotenv').config();
+const serverless = require('serverless-http');
+const connectToDtabase = require("./db");
 const express = require('express');
-const path = require('path');
+const cors = require('cors');
+// const port = 5000;
+
+connectToDtabase();
 const app = express();
 
-const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-  // Serve HTML file for the root path
-  const responseData = '<h1>Hello from /</h1>';
-  res.sendFile(responseData);
-});
+// middle-Ware
+app.use(express.json());
+app.use(cors());
+// app.use('/uploads', express.static('uploads'));
 
-app.get('/api', (req, res) => {
-  // Respond to API GET request
-  const responseData = '<h1>Hello from /api</h1>';
-  res.send(responseData);
-});
+//Available Routes
+app.use('/.netlify/functions/server/api/auth/seller', require('./routes/seller/sellerAuth'));
+app.use('/.netlify/functions/server/api/seller', require('./routes/seller/sellerProducts'));
+app.use('/api/auth/user', require('./routes/user/userAuth'));
+app.use('/api', require('./routes/getAllProducts'));
+app.use('/api/user', require('./routes/user/addToCart'));
+app.use('/api/user', require('./routes/user/cartProducts'));
+app.use('/api/user', require('./routes/user/checkout'));
+app.use('/api/user', require('./routes/user/myOrders'));
+app.use('/api/user', require('./routes/user/addReview'));
+app.use('/api/auth/admin', require('./routes/admin/adminAuth'));
+app.use('/api/admin', require('./routes/admin/dashboard'));
+app.use('/api/user', require('./routes/user/profile'));
+app.use('/.netlify/functions/server/api/seller', require('./routes/seller/sellerOrders'));
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+
+// Connect to the server
+// app.listen(port, ()=>{
+//     console.log(`Server is running at port ${port}`);
+// });
+
+module.exports.handler = serverless(app);
+
