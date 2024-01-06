@@ -1,10 +1,10 @@
 const serverless = require('serverless-http');
-const connectToDtabase = require("./db");
+const run = require("./db");
 const express = require('express');
 const cors = require('cors');
 // const port = 5000;
 
-connectToDtabase();
+run();
 const app = express();
 
 
