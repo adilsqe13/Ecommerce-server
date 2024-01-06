@@ -1,6 +1,6 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-// const mongoURI = 'mongodb://127.0.0.1:27017/myshopper';
-const mongoURI = 'mongodb+srv://user123:Addilsqe13@cluster0.vrujhwg.mongodb.net/my-shopper';
+const mongoURI = process.env.MONGODB_URI;
 
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
