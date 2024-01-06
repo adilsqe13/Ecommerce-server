@@ -14,8 +14,8 @@ app.use(cors());
 // app.use('/uploads', express.static('uploads'));
 
 //Available Routes
-app.use('/.netlify/functions/server/api/auth/seller', require('./routes/seller/sellerAuth'));
-app.use('/.netlify/functions/server/api/seller', require('./routes/seller/sellerProducts'));
+app.use('/api/auth/seller', require('./routes/seller/sellerAuth'));
+app.use('/api/seller', require('./routes/seller/sellerProducts'));
 app.use('/api/auth/user', require('./routes/user/userAuth'));
 app.use('/api', require('./routes/getAllProducts'));
 app.use('/api/user', require('./routes/user/addToCart'));
@@ -26,7 +26,7 @@ app.use('/api/user', require('./routes/user/addReview'));
 app.use('/api/auth/admin', require('./routes/admin/adminAuth'));
 app.use('/api/admin', require('./routes/admin/dashboard'));
 app.use('/api/user', require('./routes/user/profile'));
-app.use('/.netlify/functions/server/api/seller', require('./routes/seller/sellerOrders'));
+app.use('/api/seller', require('./routes/seller/sellerOrders'));
 
 
 // Connect to the server
