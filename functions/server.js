@@ -14,7 +14,7 @@ app.use(express.json());
 // app.use('/uploads', express.static('uploads'));
 
 //Available Routes
-app.use('/.netlify/functions/db/api/auth/seller', require('./routes/seller/sellerAuth'));
+app.use('/.netlify/functions/server/api/auth/seller', require('./routes/seller/sellerAuth'));
 app.use('/.netlify/functions/server/api/seller', require('./routes/seller/sellerProducts'));
 app.use('/.netlify/functions/server/api/auth/user', require('./routes/user/userAuth'));
 app.use('/.netlify/functions/server/api', require('./routes/getAllProducts'));
