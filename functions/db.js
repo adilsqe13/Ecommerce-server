@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://127.0.0.1:27017/myshopper';
+const mongoURI = 'https://startling-dusk-f4ff70.netlify.app/.netlify/functions/db';
 
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
