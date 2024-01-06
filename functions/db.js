@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const mongoURI = process.env.MONGODB_URI;
 
 exports.handler = async function (event, context) {
-  const client = await mongoose.connect(process.env.CONNECTIONSTRING, { useUnifiedTopology: true })
+  const client = await mongoose.connect(mongoURI, { useUnifiedTopology: true })
   const db = client.db()
 
 
