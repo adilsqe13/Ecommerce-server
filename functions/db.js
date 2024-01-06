@@ -1,24 +1,21 @@
-// db.js
+require('dotenv').config();
+const mongoose = require('mongoose');
+const mongoURI = process.env.MONGODB_URI;
 
-const connectToDatabase = require('./connectedToDatabase');
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  
+  const db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  db.once('open', () => {
+    console.log('Connected to the database');
+  });
 
-exports.handler = async (event, context) => {
-  try {
-    // Ensure database connection before performing operations
-    await connectToDatabase();
-
-    // Your serverless function logic here
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Success' }),
-    };
-  } catch (error) {
-    console.error('Error:', error);
-
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
-    };
-  }
-};
+  module.exports = async function connectToDatabase() {
+    await new Promise((resolve) => {
+      db.once('open', resolve);
+    });
+    return db;
+  };
