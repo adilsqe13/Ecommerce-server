@@ -1,7 +1,2 @@
 [build]
-functions = "functions"
-
-[context.production.environment]
-NODE_ENV = "production"
-PORT = 3000
-NETLIFY_DEV_TIMEOUT = 60  # Increase the timeout to 60 seconds (or more)
+  functions = "functions"
