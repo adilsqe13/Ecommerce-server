@@ -23,7 +23,7 @@ async function dbConnect() {
       console.error(error);
     });
 }
-module.exports = dbConnect;
+module.exports.handler = dbConnect;
 
 // mongoose.connect(mongoURI, {
 //     useNewUrlParser: true,
