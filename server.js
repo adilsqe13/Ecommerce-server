@@ -5,13 +5,13 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   // Serve HTML file for the root path
   const filePath = path.join(__dirname, 'index.html');
   res.sendFile(filePath);
 });
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   // Respond to API GET request
   const responseData = '<h1>Hello from API!</h1>';
   res.send(responseData);
