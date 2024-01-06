@@ -13,9 +13,4 @@ mongoose.connect(mongoURI, {
     console.log('Connected to the database');
   });
 
-  module.exports.handler = async function connectToDatabase() {
-    await new Promise((resolve) => {
-      db.once('open', resolve);
-    });
-    return db;
-  };
+  module.exports = connectToDatabase() ;
