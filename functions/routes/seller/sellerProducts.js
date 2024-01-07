@@ -5,15 +5,27 @@ const Carts = require('../../models/user/Cart');
 const fetchseller = require('../../middleware/fetchseller');
 
 const multer = require('multer');
+const path = require('path');
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uploads")
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now();
+//     cb(null, uniqueSuffix + file.originalname);
+//   }
+// })
+
+// Set up multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads")
+    cb(null, 'uploads'); // Specify the upload directory
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
-  }
-})
+    // Use the original file name with a timestamp to avoid overwriting files
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  },
+});
 
 const upload = multer({ storage: storage })
 
