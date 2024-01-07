@@ -4,8 +4,7 @@ const SellerProducts = require('../../models/seller/SellerProducts');
 const Carts = require('../../models/user/Cart');
 const fetchseller = require('../../middleware/fetchseller');
 
-const multer = require('multer');
-const path = require('path');
+// const multer = require('multer');
 // const storage = multer.diskStorage({
 //   destination: function (req, file, cb) {
 //     cb(null, "uploads")
@@ -16,19 +15,7 @@ const path = require('path');
 //   }
 // })
 
-// Set up multer storage
-const storage = multer.diskStorage({
-  
-  destination: function (req, file, cb) {
-    cb(null, 'uploads'); // Specify the upload directory
-  },
-  filename: function (req, file, cb) {
-    // Use the original file name with a timestamp to avoid overwriting files
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage })
+// const upload = multer({ storage: storage })
 
 // Route-1: Get all the sales using: GET , Login required
 router.get("/get-products", fetchseller, async (req, res) => {
@@ -44,10 +31,10 @@ router.get("/get-products", fetchseller, async (req, res) => {
 //Route-2: Add seller product using: POST , Login required
 router.post('/add-product', fetchseller, upload.single('image'), async (req, res) => {
   try {
-    const imageName = req.file;
-    const { productName, category, subCategory, price, stockQuantity } = req.body
+    // const imageName = req.file.filename;
+    const { productName, category, subCategory, price, stockQuantity, imageUrl } = req.body
     const product = new SellerProducts({
-      image: imageName, productName, category, subCategory, price, stockQuantity, sellerId: req.seller.id
+      image: imageUrl, productName, category, subCategory, price, stockQuantity, sellerId: req.seller.id
     })
     const saveProduct = await product.save()
     success = true;
