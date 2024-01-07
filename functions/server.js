@@ -1,5 +1,6 @@
 const serverless = require('serverless-http');
 // const connectToDtabase = require("./db");
+const connectToMongoDB = require("./db");
 const express = require('express');
 const cors = require('cors');
 // const port = 5000;
@@ -33,6 +34,16 @@ app.use('/.netlify/functions/server/api/seller', require('./routes/seller/seller
 // app.listen(port, ()=>{
 //     console.log(`Server is running at port ${port}`);
 // });
+// Export the serverless handler
+const handler = serverless(app);
+module.exports.handler = async (event, context) => {
+  // Additional logic, if needed, before handling the request
+  const result = await handler(event, context);
+  // Additional logic, if needed, after handling the request
+  return result;
+};
 
-module.exports.handler = serverless(app);
+
+
+// module.exports.handler = serverless(app);
 

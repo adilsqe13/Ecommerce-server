@@ -1,5 +1,5 @@
-const mongoose = require('../../db');
-const  Schema  = mongoose.Schema;
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const SellerProfileSchema = new Schema({
     fullName:{
