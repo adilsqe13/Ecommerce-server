@@ -4,18 +4,18 @@ const SellerProducts = require('../../models/seller/SellerProducts');
 const Carts = require('../../models/user/Cart');
 const fetchseller = require('../../middleware/fetchseller');
 
-// const multer = require('multer');
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads")
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now();
-//     cb(null, uniqueSuffix + file.originalname);
-//   }
-// })
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads")
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now();
+    cb(null, uniqueSuffix + file.originalname);
+  }
+})
 
-// const upload = multer({ storage: storage })
+const upload = multer({ storage: storage })
 
 // Route-1: Get all the sales using: GET , Login required
 router.get("/get-products", fetchseller, async (req, res) => {
