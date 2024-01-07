@@ -1,8 +1,9 @@
+require('dotenv').config();
 const serverless = require('serverless-http');
 const connectToDtabase = require("./db");
 const express = require('express');
 const cors = require('cors');
-// const port = 5000;
+// const port = process.env.PORT;
 
 connectToDtabase();
 const app = express();
@@ -11,7 +12,7 @@ const app = express();
 // middle-Ware
 app.use(express.json());
 app.use(cors());
-// app.use('/uploads', express.static('uploads'));
+
 
 //Available Routes
 app.use('/.netlify/functions/server/api/auth/seller', require('./routes/seller/sellerAuth'));

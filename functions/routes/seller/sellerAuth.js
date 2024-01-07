@@ -65,7 +65,7 @@ router.post('/register', [
 //Route-2: Authenticate a seller using: POST "/api/auth/seller/login". No login required
 router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
-    body('password', 'Password can not be blanck').exists()
+    body('password', 'Password can not be blanck').isLength({ min: 5 })
 ], async (req, res) => {
     //If there are errors, return bad request and the errors
     const errors = validationResult(req);
