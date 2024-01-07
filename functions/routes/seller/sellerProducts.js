@@ -43,7 +43,7 @@ router.get("/get-products", fetchseller, async (req, res) => {
 //Route-2: Add seller product using: POST , Login required
 router.post('/add-product', fetchseller, upload.single('image'), async (req, res) => {
   try {
-    const imageName = req.file.filename;
+    const imageName = req.file;
     const { productName, category, subCategory, price, stockQuantity } = req.body
     const product = new SellerProducts({
       image: imageName, productName, category, subCategory, price, stockQuantity, sellerId: req.seller.id
