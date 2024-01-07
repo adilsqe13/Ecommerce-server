@@ -11,7 +11,7 @@ db.once('open', () => {
 });
 
 // Export mongoose to be used in other parts of your application
-module.exports = mongoose;
+module.exports.handler = mongoose;
 
 
 
