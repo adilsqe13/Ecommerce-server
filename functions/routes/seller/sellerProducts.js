@@ -4,18 +4,6 @@ const SellerProducts = require('../../models/seller/SellerProducts');
 const Carts = require('../../models/user/Cart');
 const fetchseller = require('../../middleware/fetchseller');
 
-const multer = require('multer');
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads")
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
-  }
-})
-
-const upload = multer({ storage: storage })
 
 // Route-1: Get all the sales using: GET , Login required
 router.get("/get-products", fetchseller, async (req, res) => {
@@ -60,11 +48,10 @@ router.delete("/delete-product", fetchseller, async (req, res) => {
 });
 
 //Route-4: Update product using: PUT , Login required
-router.put('/update-product', upload.single('image'), fetchseller, async (req, res) => {
+router.put('/update-product', fetchseller, async (req, res) => {
   try {
-    const imageName = req.file.filename;
-    const { productName, category, subCategory, price, stockQuantity, productId } = req.body
-    await SellerProducts.updateOne({ _id: productId }, { $set: { image: imageName, productName: productName, category: category, subCategory: subCategory, price: price, stockQuantity: stockQuantity } });
+    const { productName, category, subCategory, price, stockQuantity, productId, imageUrl } = req.body
+    await SellerProducts.updateOne({ _id: productId }, { $set: { image: imageUrl, productName: productName, category: category, subCategory: subCategory, price: price, stockQuantity: stockQuantity } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
