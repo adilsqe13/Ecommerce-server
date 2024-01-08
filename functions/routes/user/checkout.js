@@ -62,7 +62,7 @@ router.post('/checkout-session-buyNow', fetchuser, async (req, res) => {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: `${process.env.CLIENT}/order-successfull`,
+            success_url: `https://startling-dusk-f4ff70.netlify.app/.netlify/functions/server/order-successfull`,
             cancel_url: `${process.env.CLIENT}/cancel`,
         });
         res.json({ id: session.id });
