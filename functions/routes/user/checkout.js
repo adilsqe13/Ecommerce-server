@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')('sk_test_51OD0ZASG3BK2RYvP74JJFSQySC6QB8BiWnV3flC4a6L87t20M6IrCvBLDcoTTPew439724W8T3OOcUNhGTY7cayT00345lyq7o');
@@ -28,8 +29,8 @@ router.post('/checkout-session', fetchuser, async (req, res) => {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:3000/order-success",
-            cancel_url: "http://localhost:3000/cancel",
+            success_url: `${process.env.CLIENT}/order-success`,
+            cancel_url: `${process.env.CLIENT}/cancel`,
         });
         res.json({ id: session.id });
     } catch (error) {
@@ -61,8 +62,8 @@ router.post('/checkout-session-buyNow', fetchuser, async (req, res) => {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:3000/order-successfull",
-            cancel_url: "http://localhost:3000/cancel",
+            success_url: `${process.env.CLIENT}/order-successfull`,
+            cancel_url: `${process.env.CLIENT}/cancel`,
         });
         res.json({ id: session.id });
     } catch (error) {
