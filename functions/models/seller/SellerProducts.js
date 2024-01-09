@@ -26,7 +26,7 @@ const SellerProductsSchema = new Schema({
         type: Number,
         required: true,
     },
-    imageUrl: {
+    image: {
         type: String,
         required: true,
     },

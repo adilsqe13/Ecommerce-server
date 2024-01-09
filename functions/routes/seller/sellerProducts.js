@@ -21,7 +21,7 @@ router.post('/add-product', fetchseller, async (req, res) => {
   try {
     const { productName, category, subCategory, price, stockQuantity, imageUrl, public_id } = req.body
     const product = new SellerProducts({
-       imageUrl, public_id, productName, category, subCategory, price, stockQuantity, sellerId: req.seller.id
+       image:imageUrl, public_id, productName, category, subCategory, price, stockQuantity, sellerId: req.seller.id
     })
     const saveProduct = await product.save()
     success = true;
