@@ -1,8 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const SellerProducts = require('../../models/seller/SellerProducts');
 const Carts = require('../../models/user/Cart');
 const fetchseller = require('../../middleware/fetchseller');
+const cloudinary = require('cloudinary').v2;
+
 
 
 // Route-1: Get all the sales using: GET , Login required
@@ -37,17 +40,21 @@ router.delete("/delete-product", fetchseller, async (req, res) => {
   try {
     const { productId } = req.body;
     const public_id = (await SellerProducts.findOne({_id: productId})).public_id;
-    console.log(public_id);
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET
+    });
     await SellerProducts.deleteOne({ _id: productId });
     await Carts.deleteOne({ productId: productId });
-    res.json({ success:true, public_id:public_id });
+    await cloudinary.uploader.destroy(public_id);
+    res.json({ success:true });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal server error");
   }
 });
 
-//Route-4: Update product using: PUT , Login required
 router.put('/update-product', fetchseller, async (req, res) => {
   try {
     const { productName, category, subCategory, price, stockQuantity, productId, imageUrl } = req.body
