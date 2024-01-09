@@ -37,10 +37,11 @@ router.post('/add-product', fetchseller, async (req, res) => {
 router.delete("/delete-product", fetchseller, async (req, res) => {
   try {
     const { productId } = req.body;
+    const public_id = (await SellerProducts.findOne({_id: productId}).public_id);
     await SellerProducts.deleteOne({ _id: productId });
     await Carts.deleteOne({ productId: productId });
     success = true;
-    res.json({ success });
+    res.json({ success, public_id });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal server error");
