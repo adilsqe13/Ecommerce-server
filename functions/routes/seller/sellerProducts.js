@@ -19,10 +19,9 @@ router.get("/get-products", fetchseller, async (req, res) => {
 //Route-2: Add seller product using: POST , Login required
 router.post('/add-product', fetchseller, async (req, res) => {
   try {
-    // const imageName = req.file.filename;
     const { productName, category, subCategory, price, stockQuantity, imageUrl, public_id } = req.body
     const product = new SellerProducts({
-      image: imageUrl, public_id, productName, category, subCategory, price, stockQuantity, sellerId: req.seller.id
+       imageUrl, public_id, productName, category, subCategory, price, stockQuantity, sellerId: req.seller.id
     })
     const saveProduct = await product.save()
     success = true;
@@ -37,10 +36,10 @@ router.post('/add-product', fetchseller, async (req, res) => {
 router.delete("/delete-product", fetchseller, async (req, res) => {
   try {
     const { productId } = req.body;
-    const public_id = (await SellerProducts.findOne({_id: productId}).public_id);
+    const public_id = (await SellerProducts.findOne({_id: productId})).public_id;
+    console.log(public_id);
     await SellerProducts.deleteOne({ _id: productId });
     await Carts.deleteOne({ productId: productId });
-    // success = true;
     res.json({ success:true, public_id:public_id });
   } catch (error) {
     console.log(error.message);
