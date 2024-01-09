@@ -40,8 +40,8 @@ router.delete("/delete-product", fetchseller, async (req, res) => {
     const public_id = (await SellerProducts.findOne({_id: productId}).public_id);
     await SellerProducts.deleteOne({ _id: productId });
     await Carts.deleteOne({ productId: productId });
-    success = true;
-    res.json({ success, public_id });
+    // success = true;
+    res.json({ success:true, public_id:public_id });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal server error");
