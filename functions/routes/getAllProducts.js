@@ -7,7 +7,7 @@ router.get("/get-all-products", async (req, res) => {
   try {
     const allProducts = await SellerProducts.find();
     res.json(allProducts);
-  } catch (error)  {
+  } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal server error");
   }
