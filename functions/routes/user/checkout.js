@@ -5,6 +5,7 @@ const stripe = require('stripe')('sk_test_51OD0ZASG3BK2RYvP74JJFSQySC6QB8BiWnV3f
 const fetchuser = require('../../middleware/fetchuser');
 const SellerProducts = require('../../models/seller/SellerProducts');
 const Carts = require('../../models/user/Cart');
+const User = require('../../models/user/UserProfile');
 
 // Route: Cart Checkout api ,  Login required
 router.post('/checkout-session', fetchuser, async (req, res) => {
@@ -43,6 +44,7 @@ router.post('/checkout-session', fetchuser, async (req, res) => {
 router.post('/checkout-session-buyNow', fetchuser, async (req, res) => {
     try {
         const { product, quantity } = req.body;
+        console.log(product);
         const gstRate = 0.18; // 18% GST
         const unitPrice = product.price * (1 + gstRate); // Calculate unit price with GST
         const unitAmount = Math.round(unitPrice * 100); // Convert to cents
@@ -81,14 +83,26 @@ router.put('/order-success', fetchuser, async (req, res) => {
     }
 });
 
+// Route: Upddate product as purchased YES on  cart after order confirmation
+router.put('/order-buy-success/:cartProductObjectId', fetchuser, async (req, res) => {
+    try {
+        const cartProductObjectId = req.params.cartProductObjectId;
+        const user = await User.findOne({ _id: req.user.id });
+        await Carts.updateMany({ _id: cartProductObjectId }, { $set: { purchased: 'YES', paymentMethod: 'Stripe', address: user.address, city: user.city, state: user.state, postalCode: user.postalCode } });
+        res.json({success:true});
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 // Route: Add product on cart and update purchased YES after order confirmation
 router.put('/order-successfull/:productId', fetchuser, async (req, res) => {
     try {
         const productId = req.params.productId;
         const sellerProduct = await SellerProducts.find({ _id: productId });
-        const cartProduct = new Carts({ userId: req.user.id, productId: productId, product: sellerProduct });
+        const cartProduct = new Carts({ userId: req.user.id, productId: productId, sellerId: sellerProduct[0].sellerId, product: sellerProduct });
         const newCartProduct = await cartProduct.save();
-        await Carts.updateOne({ _id: newCartProduct._id }, { $set: { purchased: 'YES' } });
+        res.json({ cartProductObjectId: newCartProduct._id });
     } catch (error) {
         console.error(error);
     }

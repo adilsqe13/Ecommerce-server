@@ -15,6 +15,7 @@ router.post('/register', [
     body('password', 'Password must be atleast 5 character').isLength({ min: 5 }),
     body('mobile', 'Mobile number will be 10 digit ').isLength({ max: 10 }),
     body('address', 'Enter a valid address').isLength({ min: 5 }),
+    body('city', 'Enter a valid city name').isLength({ min: 5 }),
     body('state', 'Enter valid address').isLength({ min: 5 }),
     body('postalCode', 'Enter a valid postal code').isLength({ min: 6 }),
 
@@ -44,6 +45,7 @@ router.post('/register', [
             email: req.body.email,
             mobile: req.body.mobile,
             address: req.body.address,
+            city: req.body.city,
             state: req.body.state,
             postalCode: req.body.postalCode,
         });

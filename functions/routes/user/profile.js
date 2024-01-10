@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const UserProfile = require('../../models/user/UserProfile');
+const Carts = require('../../models/user/Cart');
 const fetchuser = require('../../middleware/fetchuser');
 const { body, validationResult } = require('express-validator');
 let success = false;
@@ -36,6 +37,7 @@ router.put('/update-profile', [
 router.delete('/delete-account', fetchuser, async (req, res) => {
     try {
         await UserProfile.deleteOne({ _id: req.user.id });
+        await Carts.deleteMany({ userId: req.user.id });
     } catch (error) {
         console.error(error);
     }
