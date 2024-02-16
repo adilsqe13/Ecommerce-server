@@ -1,8 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-// const stripe = require('stripe')('sk_test_51OD0ZASG3BK2RYvP74JJFSQySC6QB8BiWnV3flC4a6L87t20M6IrCvBLDcoTTPew439724W8T3OOcUNhGTY7cayT00345lyq7o');
-const stripe = require('stripe')('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');
+const stripe = require('stripe')('sk_test_51OD0ZASG3BK2RYvP74JJFSQySC6QB8BiWnV3flC4a6L87t20M6IrCvBLDcoTTPew439724W8T3OOcUNhGTY7cayT00345lyq7o');
 const fetchuser = require('../../middleware/fetchuser');
 const SellerProducts = require('../../models/seller/SellerProducts');
 const Carts = require('../../models/user/Cart');
